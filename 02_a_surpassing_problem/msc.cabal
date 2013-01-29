@@ -1,0 +1,27 @@
+name:          msc
+version:       0.0.0
+cabal-version: >= 1.10
+build-type:    Simple
+author:        Shohei Murayama
+maintainer:    shohei.murayama@gmail.com
+synopsis:      An implementation of Chapter2 "A surpassing problem" of "Pearls of Functional Algorithm Design"
+
+library
+  build-depends:       base >= 4
+  default-language:    Haskell2010
+  exposed-modules:     Msc
+  ghc-options:         -Wall
+  hs-source-dirs:      . 
+
+test-suite spec
+  type:                exitcode-stdio-1.0
+  build-depends:       base >= 4
+                     , hspec
+                     , hspec-expectations
+                     , QuickCheck
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+  hs-source-dirs:      .
+                     , test
+  main-is:             Spec.hs
+
