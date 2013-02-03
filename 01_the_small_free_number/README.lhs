@@ -44,7 +44,7 @@ An array-based solution
 >     sequence [writeArray a x True | x <- xs, x <= n]
 >     return a
 >   where
->     n = length xs
+>     n = maximum xs
 
 
 この手法をつかってソート行うこともできる。

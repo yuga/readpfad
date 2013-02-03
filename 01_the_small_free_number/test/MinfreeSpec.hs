@@ -36,4 +36,7 @@ spec = do
     describe "minfree2" $ do
         prop "equals to minfree1A" $ \(MinfreeTarget xs) ->
             minfree2  xs == minfree1A xs
-
+    
+    describe "minfree3" $ do
+        prop "equals to minfree1A" $ \(MinfreeTarget xs) ->
+            minfree3  xs == minfree1A xs
