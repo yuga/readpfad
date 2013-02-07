@@ -11,27 +11,43 @@ import System.Random
 main :: IO ()
 main = do
     g <- getStdGen
-    ns1 <- generator (100) g
-    ns2 <- generator (100) g
-    let xs1 = ns1 `using` rdeepseq
-        xs2 = ns2 `using` rdeepseq
+    ns11 <- generator  (10) g
+    ns12 <- generator  (10) g
+    ns21 <- generator (100) g
+    ns22 <- generator (100) g
+    let xs11 = ns11 `using` rdeepseq
+        xs12 = ns12 `using` rdeepseq
+        xs21 = ns21 `using` rdeepseq
+        xs22 = ns22 `using` rdeepseq
     defaultMain [
+{-
         bgroup "minfree1A" [
-            bench "10^2 #1" $ nf minfree1A xs1
-          , bench "10^2 #2" $ nf minfree1A xs2
+            bench "10^1 #1" $ nf minfree1A xs11
+          , bench "10^1 #2" $ nf minfree1A xs12
+          , bench "10^2 #1" $ nf minfree1A xs21
+          , bench "10^2 #2" $ nf minfree1A xs22
           ]
-
-      , bgroup "minfree1B" [
-            bench "10^2 #1" $ nf minfree1B xs1
-          , bench "10^2 #2" $ nf minfree1B xs2
+      ,
+-}
+        bgroup "minfree1B" [
+            bench "10^1 #1" $ nf minfree1B xs11
+          --, bench "10^1 #2" $ nf minfree1B xs12
+          , bench "10^2 #1" $ nf minfree1B xs21
+          --, bench "10^2 #2" $ nf minfree1B xs22
           ]
+{-
       , bgroup "minfree2" [
-            bench "10^2 #1" $ nf minfree2 xs1
-          , bench "10^2 #2" $ nf minfree2 xs2
+            bench "10^1 #1" $ nf minfree2 xs11
+          , bench "10^1 #2" $ nf minfree2 xs12
+          , bench "10^2 #1" $ nf minfree2 xs21
+          , bench "10^2 #2" $ nf minfree2 xs22
           ]
+-}
       , bgroup "minfree3" [
-            bench "10^2 #1" $ nf minfree3 xs1
-          , bench "10^2 #2" $ nf minfree3 xs2
+            bench "10^1 #1" $ nf minfree3 xs11
+          --, bench "10^1 #2" $ nf minfree3 xs12
+          , bench "10^2 #1" $ nf minfree3 xs21
+          --, bench "10^2 #2" $ nf minfree3 xs22
           ]
       ]
 

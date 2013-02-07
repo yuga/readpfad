@@ -73,6 +73,8 @@ and join can be computed in linear time, then the time complexity T(n) of
 the divde and conquer algorithm for computing msc on a list of length n
 satisfies T(n) = 2T(n/2)+O(n), with solution T(n) = O(n log n).
 
+mscはカウント結果しか提供しないので情報が少なすぎて分解が行えない。
+
     アルゴリズムイントロダクション第3章で述べられているmaster theoremを用いて、
     漸化式を以下のように計算できる。
 
@@ -91,6 +93,7 @@ satisfies T(n) = 2T(n/2)+O(n), with solution T(n) = O(n log n).
     master methodを使わなくても、ツリーを描いて計算してもいい。
 
 まず最低限の一般化として、すべてのsurpasser countを計算したtableを作るところから始める。
+(分解可能になるよう情報をすべてもったデータを作る)
 
 > msc1' :: Ord a => [a] -> Int
 > msc1' = maximum . map snd . table1'
@@ -112,11 +115,9 @@ table1''の式から以下のように導出できる。
     =   { divide and cnquer property of tails }
       [(z,scount z zs) | z:zs <- map (++ ys) (tails xs) ++ tails ys]
     =   { distributing <- over ++ }
-      [(z,scount z (zs ++ ys)) | z:zs <- tails xs] ++
-      [(z,scount z zs) | z:zs <- tails ys]
+      [(z,scount z (zs ++ ys)) | z:zs <- tails xs] ++ [(z,scount z zs) | z:zs <- tails ys]
     =   { since scount z (zs ++ ys) = scount z zs + scount z ys }
-      [(z,scount z zs + scount z ys) | z:zs <- tails xs] ++
-      [(z,scount z zs) | z:zs <- tails ys]
+      [(z,scount z zs + scount z ys) | z:zs <- tails xs] ++ [(z,scount z zs) | z:zs <- tails ys]
     =   { definition of table and ys = map fst (table ys) }
       [(z,c + scount z (map fst (table ys))) | (z,c) <- table xs] ++ table ys
 
@@ -219,7 +220,7 @@ merge関数の実装は上記実装では単にリストを連結する (++) で
 
 * x < y の場合
   txsの先頭要素を新しいリストの先頭要素とする。
-  tcount2' x tys = length tys (ここのxとtysはjoin2'''のもの)なので (2.1) と (2.3) から
+  (2.1) より tcount2' x tys = length tys (ここのxとtysはjoin2'''のもの) だから (2.3) は
       (x,c + length tys) : join''' txs' tys
   となる。
 

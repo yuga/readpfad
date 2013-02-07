@@ -63,6 +63,13 @@ A devide and conquer solution
 
 つぎに、この問題のsemiring fusionな性質を利用した分割統治法。
 
+(訂正: この本の\\と++の定義では、semiring fusionの性質をみたしていなかった
+  (as ++ bs) \\ cs = (as \\ cs) ++ (bs \\ cs)
+  as \\ (bs ++ cs) = (as \\ bs) \\ cs
+  (as \\ bs) \\ cs = (as \\ cs) \\ bs
+ これが以下を満たしていない。
+)
+
 半環(semiring)
 http://ja.wikipedia.org/wiki/%E5%8D%8A%E7%92%B0
   3. 乗法は加法の上に分配的である:

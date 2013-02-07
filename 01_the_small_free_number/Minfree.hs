@@ -6,7 +6,7 @@ import Control.Monad.ST (ST, runST)
 import Data.Array       (Array, accumArray, assocs, elems)
 import Data.Array.ST    (STUArray, newArray, newListArray, readArray, runSTArray, writeArray)
 import Data.List        (partition)
-import Debug.Trace      (trace)
+--import Debug.Trace      (trace)
 
 minfree1A :: [Int] -> Int
 minfree1A = search . checklistA
