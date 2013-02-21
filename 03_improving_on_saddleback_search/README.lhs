@@ -24,8 +24,7 @@ Pearls of Functional Algorithm Design
 > invert1 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert1 f z = [(x,y) | x <- [0..z], y <- [0..z], f (x,y) == z]
 
-**コスト:**
-
+**コスト:**<br/>
 invert1はfを(z+1)^2回評価する可能性がある。
 
 
@@ -34,7 +33,7 @@ invert1はfを(z+1)^2回評価する可能性がある。
 fが増加関数ならばf (x,y) >= x + y となる。
 よって平方の対角線以下に値は制限される。
 
-**f (x,y) >= x + y の証明:**<br />
+**f (x,y) >= x + y の証明:**<br/>
 任意の自然数aについて x = a であるとき、yに対しての帰納法を用いる。
 y = 0 のとき z >= x より z >= a であるから、f (a,0) >= a + 0 となり
 証明の命題は正しい。
@@ -48,7 +47,7 @@ f (x,k+1) - f (x,k) >= 1である。
 > invert2 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert2 f z = [(x,y) | x <- [0..z], y <- [0..z-x], f (x,y) == z]
 
-**コスト:**
+**コスト:**<br/>
 この解決方法は実行コストのオーダーに影響しない。
 
 
@@ -73,20 +72,21 @@ f (x,k+1) - f (x,k) >= 1である。
 
 > invert3 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert3 f z = find3 (0,z) f z
->
+> 
 > find3 :: (Int,Int) -> ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > find3 (u,v) f z = [(x,y) | x <- [u..z], y <- [v,v-1..0], f (x,y) == z]
 
-コスト: 未解析
+**コスト:**<br/>
+未解析
 
 
 解法(4) Saddleback Search (基本形)
 -----------------------------------------
-* まずはじめに、u < z または v < 0 のとき明らかに find (u,v) f z = [] である。
-* つぎに f (u,v) < z ならば、すべての v' < v に対し f (u,v') < f (u,v) < z だから、
-  この列uの残りを解から除去する。
-* f (u,v) > z ならば、同様にこの行vの残りを解から除去する。
-* 最後に f (u,v) = z ならば、(u,v) を記録して、列uと行vの残りを解から除去する。
+1. まずはじめに、u < z または v < 0 のとき明らかに find (u,v) f z = [] である。
+2. つぎに f (u,v) < z ならば、すべての v' < v に対し f (u,v') < f (u,v) < z だから、
+   この列uの残りを解から除去する。
+3. f (u,v) > z ならば、同様にこの行vの残りを解から除去する。
+4. 最後に f (u,v) = z ならば、(u,v) を記録して、列uと行vの残りを解から除去する。
 
 <!--
 (0,z)    (z,z)
@@ -111,7 +111,8 @@ f (x,k+1) - f (x,k) >= 1である。
 >   where
 >     z' = f (u,v)
 
-コスト: 最悪の場合、findは左上の角から右下の角まで正方形の周囲を巡回することになるので、
+**コスト:**<br/>
+最悪の場合、findは左上の角から右下の角まで正方形の周囲を巡回することになるので、
 fの評価回数は 2z + 1 である。最良の場合、findは底または右端に直接進むので、z + 1 の
 評価回数が必要である。
 
@@ -121,8 +122,8 @@ fの評価回数は 2z + 1 である。最良の場合、findは底または右�
 まだ探索範囲を削減できる。初期の探索範囲を正方形の左上の角(0,z)と
 右下の角(z,0)にしているが、求める値に対して過剰である。
 
-(z+1)*(z+1)の正方形を探索するよりも<br/>
-(m+1)*(n+1)の矩形を探索するようにする。
+* (z+1)*(z+1)の正方形を探索するよりも
+* (m+1)*(n+1)の矩形を探索するようにする。
   
 > invert5 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert5 f z = find5 (0,m) f z
@@ -139,18 +140,21 @@ fの評価回数は 2z + 1 である。最良の場合、findは底または右�
 >     n  = maximum (filter (\x -> f (x,0) <= z) [0..z])
 >     z' = f (u,v)
 
-コスト: 未解析
+**コスト:**<br/>
+未解析
 
 
 解法(6) Saddleback Search (探索範囲の決定に二分探索を利用)
 ------------------------------------------
 さらにmとnを二分探索で求めることができる。
+
 自然数上の増加関数gに対し、g x <= z < g y となるx、y、zを仮定する。
 一意な値mを決定する m = bsearch g (x,y) z は
 g m <= z < g (m+1)であるようなx <= m < yの範囲で
 g a <= z < g b かつ x <= a < b <= y の不変式を維持できるものとなる。
 
 整理すると g x <= g a <= g m <= z < g (m+1) <= g b <= g y である。
+
 これは以下のプログラムを導く。
 
 > bsearch g (a,b) z
@@ -191,7 +195,8 @@ g x と g y はどちらも、このbserchのアルゴリズムのなかで実�
 >     n  = bsearch (\x -> f (x,0)) (-1,z+1) z
 >     z' = f (u,v)
 
-コスト: このバージョンのintertは、fの最悪評価回数 2log(z)+m+n、
+**コスト:**<br/>
+このバージョンのintertは、fの最悪評価回数 2log(z)+m+n、
 最良評価回数 2log(z)+min(m,n)である。mまたはnは大体において
 zより小さくなりうるので、(たとえば f (x,y) = 2^x + 3^y )
 結果としてアルゴリズムは最悪の場合でもO(log(z))しかかからない。
@@ -234,25 +239,21 @@ floor(m/2)│ステル│ノコス│    ceil(m/2)│    ノコス    │ │ス
 
 L字型は水平または垂直に2つの矩形に分割できる。
 
-コスト:
-
 __上限:漸化式Tを定義する__
 
 m*nの矩形があるとき、T(m,n)はその矩形を探索するのに必要なfの評価回数を
 表すとする。
 
-<pre>
-m = 0 または n = 0 であるなら、探索するものはない。
+    m = 0 または n = 0 であるなら、探索するものはない。
 
-m = 1 または n = 1 であるなら、
-  T(1,n) = 1 + T(1,ceil(n/2))
-  T(m,1) = 1 + T(ceil(m/2),1)
+    m = 1 または n = 1 であるなら、
+      T(1,n) = 1 + T(1,ceil(n/2))
+      T(m,1) = 1 + T(ceil(m/2),1)
 
-m >= 2 かつ n >= 2 のとき、
-少なくとも floor (m/2) * floor (n/2)のサイズの領域1つを放棄する。
-水平に分割を行うと、floor(m/2) * ceil(n/2) と ceil(m/2) * n のサイズの
-2つの矩形が残る。
-</pre>
+    m >= 2 かつ n >= 2 のとき、
+    少なくとも floor (m/2) * floor (n/2)のサイズの領域1つを放棄する。
+    水平に分割を行うと、floor(m/2) * ceil(n/2) と ceil(m/2) * n のサイズの
+    2つの矩形が残る。
 
 したがって、
 
@@ -333,13 +334,14 @@ A(m,n)を評価するのは簡単で、0 <= x < n と 0 <= y < m の範囲で f 
 
     A(m,n) = sum_k=0^m{(m choose k)*(n choose k)} = ((m+n) choose n)
 
-* wolframalpha:
-  * sum_k=0^m((m!/(k!*(m-k)!))*(n!/(k!*(n-k)!)))
+* wolframalpha:<br/>
+  sum_k=0^m((m!/(k!*(m-k)!))*(n!/(k!*(n-k)!)))
 
-* the summation is an instance of Vandermonde's convolution;
-  * http://en.wikipedia.org/wiki/Vandermonde's_identity
-  * Graham, R. L., Knuth, D. E. and Patashnik, O. (1989).
-    Concrete Mathematics. Reading, MA: Addison-Wesley.
+* the summation is an instance of Vandermonde's convolution;<br/>  
+  http://en.wikipedia.org/wiki/Vandermonde's_identity
+
+  Graham, R. L., Knuth, D. E. and Patashnik, O. (1989).<br/>
+  Concrete Mathematics. Reading, MA: Addison-Wesley.
 
 対数をとると、下限が得られる
 
