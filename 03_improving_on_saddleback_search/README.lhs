@@ -35,15 +35,14 @@ fが増加関数ならばf (x,y) >= x + y となる。
 よって平方の対角線以下に値は制限される。
 
 **f (x,y) >= x + y の証明:**<br/>
-任意の自然数aについて x = a であるとき、yに対しての帰納法を用いる。
-y = 0 のとき z >= x より z >= a であるから、f (a,0) >= a + 0 となり
-証明の命題は正しい。
-
-y >= k のとき f (x,k) >= x + k が成り立つと仮定し、y = k + 1のとき、
-f (x,k+1) >= x + (k+1)であることを証明する。(x+(k+1)) - (x+k) = 1で
-あるので、f (x,k+1) - f (x,k) >= 1を証明すればよい。まず、fは増加関数
-であるからf (x,k+1) > f (x,k)となる。このときfは自然数を返すので
-f (x,k+1) - f (x,k) >= 1である。
+  * 任意の自然数aについて x = a であるとき、yに対しての帰納法を用いる。
+    y = 0 のとき z >= x より z >= a であるから、f (a,0) >= a + 0 となり
+    証明の命題は正しい。
+  * y >= k のとき f (x,k) >= x + k が成り立つと仮定し、y = k + 1のとき、
+    f (x,k+1) >= x + (k+1)であることを証明する。(x+(k+1)) - (x+k) = 1で
+    あるので、f (x,k+1) - f (x,k) >= 1を証明すればよい。まず、fは増加関数
+    であるからf (x,k+1) > f (x,k)となる。このときfは自然数を返すので
+    f (x,k+1) - f (x,k) >= 1である。
 
 > invert2 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert2 f z = [(x,y) | x <- [0..z], y <- [0..z-x], f (x,y) == z]
@@ -339,11 +338,11 @@ A(m,n)を評価するのは簡単で、0 <= x < n と 0 <= y < m の範囲で f 
 
     A(m,n) = sum_k=0^m{(m choose k)*(n choose k)} = ((m+n) choose n)
 
-    wolframalpha:
+* wolframalpha:
     > sum_k=0^m((m!/(k!*(m-k)!))*(n!/(k!*(n-k)!)))
 
-    the summation is an instance of Vandermonde's convolution; 
-    http://en.wikipedia.org/wiki/Vandermonde's_identity
+* [the summation is an instance of Vandermonde's convolution]
+  (http://en.wikipedia.org/wiki/Vandermonde's_identity)
     > Graham, R. L., Knuth, D. E. and Patashnik, O. (1989).
     > Concrete Mathematics. Reading, MA: Addison-Wesley.
 
