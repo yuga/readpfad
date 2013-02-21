@@ -21,14 +21,14 @@ http://www.sciencedirect.com/science/journal/01676423/10/3
 Remによる解法はBinary searchを使ったものだったが、
 我々の解法ははdivde and conquerの応用である。
 
-定義: (surpasser)
-A surpasser of an element of an array is a greater element to the right,
-so x[j] is a surpasser of x[i] if i < j and x[i] < x[j].
+* 定義: (surpasser)
+  - A surpasser of an element of an array is a greater element to the right,
+    so x[j] is a surpasser of x[i] if i < j and x[i] < x[j].
 
-定義: (surpasser count)
-The surpasser count of an element is the number of its surpassers.
+* 定義: (surpasser count)
+  - The surpasser count of an element is the number of its surpassers.
 
-例:
+<h4>例:</h4>
     G  E  N  E  R  A  T  I  N  G
     5  6  2  5  1  4  0  1  0  0
 
@@ -36,15 +36,15 @@ The surpasser count of an element is the number of its surpassers.
 ひとつめのEがN R T I N Gの6個のsurpasserを持つ。
 
 Remの問題は、
-to compute the maximum surpasser count of an array of length n > 1
-and to do so with an O(n log n) algorithm.
+    to compute the maximum surpasser count of an array of length n > 1
+    and to do so with an O(n log n) algorithm.
 
- ### Specification
+<h3>Specification</h3>
 
 配列で考えるのはやめてリストということにする。
 
 > import Data.List
->
+> 
 > msc1 :: Ord a => [a] -> Int
 > msc1 [] = 0
 > msc1 xs = maximum [scount1 z zs | z:zs <- tails1 xs]
@@ -58,16 +58,17 @@ and to do so with an O(n log n) algorithm.
 
 mscは定義可能だが指数時間かかってしまう。
 
-  - tails1  : O(n)
-    scount1 : O(n)
-    => msc1 : O(n^2)
+    - tails1  : O(n)
+      scount1 : O(n)
+      => msc1 : O(n^2)
+
 
 Divide and conquer
 --------------------------
 
 If we can find a function join so that
 
-  msc (xs ++ ys) = join (msc xs) (msc ys)
+    msc (xs ++ ys) = join (msc xs) (msc ys)
 
 and join can be computed in linear time, then the time complexity T(n) of
 the divde and conquer algorithm for computing msc on a list of length n
@@ -145,9 +146,9 @@ table1''の式から以下のように導出できる。
 
 このコストは以下の通り。
 
-  - tcount2     : O(n)
-    => join2    : O(n^2)
-      => table2 : O(n^2) 
+    - tcount2     : O(n)
+      => join2    : O(n^2)
+        => table2 : O(n^2) 
 
 join2がtxs、tysに対してlinear timeでない。
 tcount2の2番目の引数tysがtupleの1番目のコンポーネントに対して小さい方から順の
@@ -219,28 +220,28 @@ merge関数の実装は上記実装では単にリストを連結する (++) で
 必要な計算を検討する。
 
 * x < y の場合
-  txsの先頭要素を新しいリストの先頭要素とする。
-  (2.1) より tcount2' x tys = length tys (ここのxとtysはjoin2'''のもの) だから (2.3) は
-      (x,c + length tys) : join''' txs' tys
-  となる。
+  - txsの先頭要素を新しいリストの先頭要素とする。
+    (2.1) より tcount2' x tys = length tys (ここのxとtysはjoin2'''のもの) だから (2.3) は
+        (x,c + length tys) : join''' txs' tys
+    となる。
 
 * x = y の場合
-  join2' の c + tcount2' x tys と join2''' の d を比較する必要がある。
-  もともとのtableの定義(table1')から {join2''' の} d = {join2 の} tcount2 x tys であり、
-  (2.1)から tcount2' x tys = tcount2' x tys' である(ここのxと tys, tys'はjoin2'''のもの)。
-  そこでさきにtxsの先頭要素を新しいリストに入れてから、次にtysの先頭要素を入れることにすると、
-      (x,c + tcount2' x tys) : (y,d) : join2''' txs' tys'
-  となり、これは
-      (x,c + tcount2' x tys) : join2''' txs' tys
-  と等しい。
-  反対にさきにtysの先頭要素を新しいリストに入れてから、次にtxsの先頭要素を入れることにすると、
-      (y,d) : (x,c + tcount2' x tys') : join2''' txs' tys'
-  となり、これは
-      (y,d) : join2''' txs tys'
-  と等しい。後者の方がシンプルなのでこちらを採用する。
+  - join2' の c + tcount2' x tys と join2''' の d を比較する必要がある。
+    もともとのtableの定義(table1')から {join2''' の} d = {join2 の} tcount2 x tys であり、
+    (2.1)から tcount2' x tys = tcount2' x tys' である(ここのxと tys, tys'はjoin2'''のもの)。
+    そこでさきにtxsの先頭要素を新しいリストに入れてから、次にtysの先頭要素を入れることにすると、
+        (x,c + tcount2' x tys) : (y,d) : join2''' txs' tys'
+    となり、これは
+        (x,c + tcount2' x tys) : join2''' txs' tys
+    と等しい。
+    反対にさきにtysの先頭要素を新しいリストに入れてから、次にtxsの先頭要素を入れることにすると、
+        (y,d) : (x,c + tcount2' x tys') : join2''' txs' tys'
+    となり、これは
+        (y,d) : join2''' txs tys'
+    と等しい。後者の方がシンプルなのでこちらを採用する。
 
 * x > y の場合
-  tys側の先頭要素を新しいリストに入れるべきなので、x = y の場合で採用したものと同じになる。
+  - tys側の先頭要素を新しいリストに入れるべきなので、x = y の場合で採用したものと同じになる。
 
 以上により、join2'''は以下のようになる。
 
