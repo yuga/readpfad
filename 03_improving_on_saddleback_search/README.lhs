@@ -339,14 +339,13 @@ A(m,n)を評価するのは簡単で、0 <= x < n と 0 <= y < m の範囲で f 
 
     A(m,n) = sum_k=0^m{(m choose k)*(n choose k)} = ((m+n) choose n)
 
-* wolframalpha:<br/>
-  sum_k=0^m((m!/(k!*(m-k)!))*(n!/(k!*(n-k)!)))
+    wolframalpha:
+    > sum_k=0^m((m!/(k!*(m-k)!))*(n!/(k!*(n-k)!)))
 
-* the summation is an instance of Vandermonde's convolution;<br/>  
-  http://en.wikipedia.org/wiki/Vandermonde's_identity
-
-  Graham, R. L., Knuth, D. E. and Patashnik, O. (1989).<br/>
-  Concrete Mathematics. Reading, MA: Addison-Wesley.
+    the summation is an instance of Vandermonde's convolution; 
+    http://en.wikipedia.org/wiki/Vandermonde's_identity
+    > Graham, R. L., Knuth, D. E. and Patashnik, O. (1989).
+    > Concrete Mathematics. Reading, MA: Addison-Wesley.
 
 対数をとると、下限が得られる
 
