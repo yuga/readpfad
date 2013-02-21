@@ -58,7 +58,7 @@ f (x,k+1) - f (x,k) >= 1である。
 正方形の左上の角(0,z)から開始しするとより良くできる。
 各段階で探索範囲を左上の角(u,v)と右下の角(z,0)の矩形に制限する。
 
-<pre>
+<pre><code>
 (0,z)    (z,z)
 ┌────┐
 │ (u,v)  │
@@ -67,7 +67,7 @@ f (x,k+1) - f (x,k) >= 1である。
 │  │    │
 └─┴──┘
 (0,0)    (z,0)
-</pre>
+</code></pre>
 
 > invert3 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert3 f z = find3 (0,z) f z
@@ -99,7 +99,7 @@ f (x,k+1) - f (x,k) >= 1である。
 
 > invert4 :: ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > invert4 f z = find4 (0,z) f z
->
+> 
 > find4 :: (Int,Int) -> ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > find4 (u,v) f z 
 >     | u > z || v < 0 = []
@@ -126,7 +126,7 @@ fの評価回数は 2z + 1 である。最良の場合、findは底または右�
 > invert5 f z = find5 (0,m) f z
 >   where
 >     m = maximum (filter (\y -> f (0,y) <= z) [0..z])
->
+> 
 > find5 :: (Int,Int) -> ((Int,Int) -> Int) -> Int -> [(Int,Int)]
 > find5 (u,v) f z
 >     | u > n || v < 0 = []
