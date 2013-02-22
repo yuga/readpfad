@@ -183,8 +183,8 @@ g x と g y はどちらも、このbserchのアルゴリズムのなかで実�
 > invert6 f z = find6 (0,m) f' z
 >   where
 >     m = bsearch (\y -> f' (0,y)) (-1,z+1) z
->     f' (0,-1) = -1
->     f' (-1,0) = -1
+>     f' (0,-1) = 0
+>     f' (-1,0) = 0
 >     f' t = f t
 > 
 > find6 :: (Int,Int) -> ((Int,Int) -> Int) -> Int -> [(Int,Int)]
@@ -303,6 +303,7 @@ m*nの矩形があるとき、T(m,n)はその矩形を探索するのに必要�
 したがって m <= n ならば
 
     T(m,n) <= (3^log(m))*log(2n/m) = (m^1.59)*log(2n/m)
+
     上記に至る展開:
       T(m,n) = U(log(m),log(n))
              = (3^log(m)) * (log(n) - log(m) + 1/2)
