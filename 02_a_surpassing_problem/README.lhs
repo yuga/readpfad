@@ -19,7 +19,7 @@ Science of Computer Programming 10 (3). 319-325
 http://www.sciencedirect.com/science/journal/01676423/10/3
 
 Remによる解法はBinary searchを使ったものだったが、
-我々の解法ははdivde and conquerの応用である。
+我々の解法はdivde and conquerの応用である。
 
 * 定義: (surpasser)
   - A surpasser of an element of an array is a greater element to the right,

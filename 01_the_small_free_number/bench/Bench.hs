@@ -11,43 +11,55 @@ import System.Random
 main :: IO ()
 main = do
     g <- getStdGen
-    ns11 <- generator  (10) g
-    ns12 <- generator  (10) g
-    ns21 <- generator (100) g
-    ns22 <- generator (100) g
+    ns11 <- generator   (10) g
+    ns12 <- generator   (10) g
+    ns21 <- generator  (100) g
+    ns22 <- generator  (100) g
+    ns31 <- generator (1000) g
+    ns32 <- generator (1000) g
     let xs11 = ns11 `using` rdeepseq
         xs12 = ns12 `using` rdeepseq
         xs21 = ns21 `using` rdeepseq
         xs22 = ns22 `using` rdeepseq
+        xs31 = ns31 `using` rdeepseq
+        xs32 = ns32 `using` rdeepseq
     defaultMain [
-{-
+
         bgroup "minfree1A" [
             bench "10^1 #1" $ nf minfree1A xs11
           , bench "10^1 #2" $ nf minfree1A xs12
           , bench "10^2 #1" $ nf minfree1A xs21
           , bench "10^2 #2" $ nf minfree1A xs22
+          , bench "10^3 #1" $ nf minfree1A xs31
+          , bench "10^3 #2" $ nf minfree1A xs32
           ]
       ,
--}
+
         bgroup "minfree1B" [
             bench "10^1 #1" $ nf minfree1B xs11
-          --, bench "10^1 #2" $ nf minfree1B xs12
+          , bench "10^1 #2" $ nf minfree1B xs12
           , bench "10^2 #1" $ nf minfree1B xs21
-          --, bench "10^2 #2" $ nf minfree1B xs22
+          , bench "10^2 #2" $ nf minfree1B xs22
+          , bench "10^3 #1" $ nf minfree1B xs31
+          , bench "10^3 #2" $ nf minfree1B xs32
           ]
-{-
+
       , bgroup "minfree2" [
             bench "10^1 #1" $ nf minfree2 xs11
           , bench "10^1 #2" $ nf minfree2 xs12
           , bench "10^2 #1" $ nf minfree2 xs21
           , bench "10^2 #2" $ nf minfree2 xs22
+          , bench "10^3 #1" $ nf minfree2 xs31
+          , bench "10^3 #2" $ nf minfree2 xs32
           ]
--}
+
       , bgroup "minfree3" [
             bench "10^1 #1" $ nf minfree3 xs11
-          --, bench "10^1 #2" $ nf minfree3 xs12
+          , bench "10^1 #2" $ nf minfree3 xs12
           , bench "10^2 #1" $ nf minfree3 xs21
-          --, bench "10^2 #2" $ nf minfree3 xs22
+          , bench "10^2 #2" $ nf minfree3 xs22
+          , bench "10^3 #1" $ nf minfree3 xs31
+          , bench "10^3 #2" $ nf minfree3 xs32
           ]
       ]
 

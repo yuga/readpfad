@@ -1,20 +1,21 @@
-name:          minfree
+name:          loopless
 version:       0.0.0
 cabal-version: >= 1.10
 build-type:    Simple
 author:        Shohei Murayama
 maintainer:    shohei.murayama@gmail.com
-synopsis:      An implementation of Chapter1 "The smallest free number" of "Pearls of Functional Algorithm Design"
+synopsis:      An implementation of Chapter28 "Loopless Functional Algorithms" of "Pearls of Functional Algorithm Design"
 
 library
   build-depends:       base >= 4
                      , array >= 0.4
   default-language:    Haskell2010
-  exposed-modules:     Minfree
+  exposed-modules:     Loopless
   ghc-options:         -Wall
                        -O2
   hs-source-dirs:      . 
 
+{-
 test-suite spec
   type:                exitcode-stdio-1.0
   build-depends:       base >= 4
@@ -45,3 +46,5 @@ benchmark bench
                        -threaded
   hs-source-dirs:      bench
   main-is:             Bench.hs
+-}
+
